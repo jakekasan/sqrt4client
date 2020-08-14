@@ -40,7 +40,7 @@ export const BlockList = ({ blockdata }: BlockListProps) => {
             { blockdata
                 .map(({id, title, left, right, blocklink}: BlockData) => {
                     return (
-                        <li>
+                        <li key={ id }>
                             <Block key={ id } {...{id, title, left, right, blocklink}} />
                         </li>
                     )})
