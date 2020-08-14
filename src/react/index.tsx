@@ -97,6 +97,11 @@ type LessonData = {
     titlePicture: string
 }
 
+type LessonSubmodule = {
+    title: string,
+    text: string[]
+}
+
 interface LessonBrowserProps {
     lessonData: LessonData[]
 }
@@ -120,8 +125,65 @@ const LessonBrowser = ({ lessonData }: LessonBrowserProps) => {
     )
 }
 
-const LessonDetails = () => {
+const HourIcon = () => <i><img src=""/></i>
 
+interface LessonDetailsProps {
+    lesson: LessonData
+}
+
+interface LessonModulesProps {
+    modules: ModuleData[]
+}
+
+interface SubmoduleGalleryProps {
+    submodules: SubModuleData[]
+}
+
+const SubmoduleGallery = ({}: SubmoduleGalleryProps ) => {
+    return (
+        <ul></ul>
+    )
+}
+
+const LessonModule = ({ id, title, submodules }: ModuleData) => {
+    return (
+        <article>
+            <h2>
+                { `${id}: ${title}` }
+            </h2>
+            <SubmoduleGallery submodules={ submodules } />
+        </article>
+    )
+}
+
+const LessonModules = ({ modules }: LessonModulesProps) => {
+    return (
+        <ol>
+            { modules.map(module => <li key={ module.id }><LessonModule { ...module } /></li>) }
+        </ol>
+    )
+}
+
+const LessonDetails = ({ lesson }: LessonDetailsProps) => {
+    return (
+        <article>
+            <aside>
+                <img src="" alt=""/>
+            </aside>
+            <section>
+                <h1>{ lesson.title }</h1>
+                <p>{ lesson.desc ?? "Bez popisu." }</p>
+                <ul>
+                    <li key="hour"><HourIcon />{ lesson.modules.reduce((total, module) => module.minutes + total, 0) }</li>
+                    <li>Difficulty</li>
+                    <li>Author</li>
+                    <li>Partner</li>
+                </ul>
+            </section>
+            <LessonModules modules={ lesson.modules } />
+        </article>
+
+    )
 }
 
 const Lesson = () => {
@@ -135,7 +197,7 @@ const Lesson = () => {
         let [data] = lessons.filter(lesson => lesson.id.toString() === id);
         
         return (
-            
+            <LessonDetails lesson={ data } />
         )
     }
 }
@@ -146,7 +208,8 @@ interface CourseDetailsProps {
 
 const CourseDetails = ({ id }: CourseDetailsProps) => {
 
-    const lessonData = lessons.filter(lesson => lesson.course_id.toString() === id)
+    const lessonData = lessons.filter(lesson => lesson.course_id.toString() === id);
+
     return (
         <LessonBrowser lessonData={ lessonData }/>
     )
@@ -202,6 +265,7 @@ const App = () => {
                 <Route exact path="/" component={ Home }/>
                 <Route path="/courses" component={ Courses} />
                 <Route path="/projects" component={ Projects } />
+                <Route path="/lessons" component={ Lesson } />
                 <Route path="/login" component={ Login } />
                 <Route path="*" component={ NotFound } />
             </Switch>
