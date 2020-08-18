@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import * as ReactDOM from "react-dom";
 import {
     BrowserRouter as Router,
@@ -16,10 +16,12 @@ import { Lesson, LessonBrowser } from "./Lesson";
 import { DataContext } from "./Data";
 import { BlockList } from "./BlockList";
 
+import "./../sass/main.scss";
+
 type JSXChildren = JSX.Element|JSX.Element[];
 
 
-const Home = () => <h3>Home</h3>
+const Home = () => <main>Home</main>
 
 
 
@@ -38,8 +40,6 @@ const CourseDetails = ({ id }: CourseDetailsProps) => {
 
 const CourseBrowser = () => {
 
-
-
     const courseData = courses.map(course => {
         return {
             id: course.id,
@@ -51,7 +51,7 @@ const CourseBrowser = () => {
     });
 
     return (
-        <section>
+        <main>
             <header>
                 Kurzy
             </header>
@@ -59,7 +59,7 @@ const CourseBrowser = () => {
             Kurzy tě teoreticky připravují na praktické vzdělávací projekty. V průběhu kurzů dávej pozor! Uzavírá je zpravidla kvíz.
             </aside>
             <BlockList blockdata={ courseData }/>
-        </section>
+        </main>
     )
 }
 
@@ -76,9 +76,10 @@ const Courses = () => {
     }
 }
 
-const Projects = () => <h3>Projekty</h3>
-const Login = () => <h3>Login</h3>
-const NotFound = () => <h3>404</h3>
+const Placeholder: FunctionComponent<{text: string}> = ({text}) => <main><h5>{ text }</h5></main>
+const Projects = () => <Placeholder text="Projects" />
+const Login = () => <Placeholder text="Login" />
+const NotFound = () => <Placeholder text="NotFound" />
 
 const App = () => {
     return (
