@@ -1,0 +1,46 @@
+$dark-back-color: #273039;
+$dark-font-color: aliceblue;
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.blocklist {
+    list-style: none;
+}
+
+#App {
+    padding: 0;
+    margin: 0;
+
+    nav {
+        padding: 20px;
+        background-color: $dark-back-color;
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        align-items: center;
+
+        * {
+            padding: 5px;
+            color: $dark-font-color;
+            text-decoration: none;
+        }
+    }
+
+    main {
+        margin: 0 auto;
+        width: 800px;
+
+        @media screen and (max-width: 850px) {
+            width: 300px;
+        }
+        
+    }
+}
+
