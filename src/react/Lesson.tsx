@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, FunctionComponent } from "react";
 import { useLocation, Redirect } from "react-router-dom";
 import { BlockList, BlockData } from "./BlockList";
 import {
@@ -7,6 +7,7 @@ import {
     ModuleData,
     SubModuleData
 } from "./Data";
+import { link } from "fs";
 
 type LessonSubmodule = {
     title: string,
@@ -17,7 +18,7 @@ interface LessonBrowserProps {
     lessonData: LessonData[]
 }
 
-export const LessonBrowser = ({ lessonData }: LessonBrowserProps) => {
+export const LessonBrowser: FunctionComponent<LessonBrowserProps> = ({ lessonData }) => {
 
     const lessonBlockData: BlockData[] = lessonData.map(lesson => {
         return {
@@ -30,10 +31,10 @@ export const LessonBrowser = ({ lessonData }: LessonBrowserProps) => {
     })
 
     return (
-        <section>
+        <main>
             <header>Lekce</header>
             <BlockList blockdata={ lessonBlockData } />
-        </section>
+        </main>
     )
 }
 
@@ -51,13 +52,42 @@ interface SubmoduleGalleryProps {
     submodules: SubModuleData[]
 }
 
-const SubmoduleGallery = ({}: SubmoduleGalleryProps ) => {
+interface ImageProps {
+    url: string
+}
+
+const Image: FunctionComponent<ImageProps> = ({ url }) => <img src={ url }/>
+
+const SubmoduleGallery: FunctionComponent<SubmoduleGalleryProps> = ({ submodules } ) => {
+
+    const [ currentPage, setCurrentPage ] = useState<number>(0);
+
+    const { title, text, pictureURL } = submodules[currentPage];
+
     return (
-        <ul></ul>
+        <section>
+            <Image url={ pictureURL } />
+            <ul>
+                { submodules.map((submodule, i) => {
+                    return (
+                        <li key={ i } onClick={ () => setCurrentPage(i) }>
+                            <a href="#">
+                                { submodule.title }
+                            </a>
+                        </li>)
+                }) }
+            </ul>
+            <article>
+                <h5>{ title }</h5>
+                <ul>
+                    { text.map((tx, i) => <li key={ i }>{ tx }</li>)}
+                </ul>
+            </article>
+        </section>
     )
 }
 
-const LessonModule = ({ id, title, submodules }: ModuleData) => {
+const LessonModule: FunctionComponent<ModuleData> = ({ id, title, submodules }: ModuleData) => {
     return (
         <article>
             <h2>
@@ -68,7 +98,7 @@ const LessonModule = ({ id, title, submodules }: ModuleData) => {
     )
 }
 
-const LessonModules = ({ modules }: LessonModulesProps) => {
+const LessonModules: FunctionComponent<LessonModulesProps> = ({ modules }) => {
     return (
         <ol>
             { modules.map(module => <li key={ module.id }><LessonModule { ...module } /></li>) }
@@ -76,9 +106,9 @@ const LessonModules = ({ modules }: LessonModulesProps) => {
     )
 }
 
-const LessonDetails = ({ lesson }: LessonDetailsProps) => {
+const LessonDetails: FunctionComponent<LessonDetailsProps> = ({ lesson }) => {
     return (
-        <article>
+        <main>
             <aside>
                 <img src="" alt=""/>
             </aside>
@@ -93,12 +123,12 @@ const LessonDetails = ({ lesson }: LessonDetailsProps) => {
                 </ul>
             </section>
             <LessonModules modules={ lesson.modules } />
-        </article>
+        </main>
 
     )
 }
 
-export const Lesson = () => {
+export const Lesson: FunctionComponent<{}> = () => {
     const { search } = useLocation();
     const { lessons } = useContext(DataContext);
 
@@ -107,7 +137,8 @@ export const Lesson = () => {
     if (id == null || id == undefined) {
         return <Redirect to="/notfound" />
     } else {
-        let [data] = lessons.getAll().filter((lesson: LessonData) => lesson.id.toString() === id);
+
+        let [ data ] = lessons.getAll().filter((lesson: LessonData) => lesson.id.toString() === id);
         
         return (
             <LessonDetails lesson={ data } />
