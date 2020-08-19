@@ -33,6 +33,7 @@ ul, ol {
         height: 170px;
         background-color: $dark-back-color;
         color: $dark-font-color;
+        transition: 0.5s;
 
         &:hover {
             background-color: $dark-back-hover;
@@ -47,6 +48,13 @@ ul, ol {
 
             header {
                 margin: 20px 10px;
+            }
+
+            aside {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                margin: 5px;
             }
 
             h5, p {
