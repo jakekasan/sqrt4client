@@ -34,6 +34,12 @@ const Config: webpack.Configuration = {
                 ]
             },
             {
+                test: /\.(png|jpg|jpeg)$/,
+                use: [
+                    "file-loader"
+                ]
+            },
+            {
                 enforce: "pre",
                 test: /\.js$/,
                 loader: "source-map-loader"
