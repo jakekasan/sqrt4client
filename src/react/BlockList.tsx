@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 
 
@@ -14,34 +14,32 @@ interface BlockListProps {
     blockdata: BlockData[]
 }
 
-type TextChild = string;
+const BlockTitle: FunctionComponent<{}> = ({ children }) => <header><h5>{ children }</h5></header>
+const BlockLeft: FunctionComponent<{}> = ({ children }) => <p className="left">{ children }</p>
+const BlockRight: FunctionComponent<{}> = ({ children }) => <p className="right">{ children }</p>
+const BlockParts: FunctionComponent<{}> = ({ children }) => <aside>{ children }</aside>
 
-interface TextProps {
-    children: TextChild
-}
 
-const BlockTitle = ({ children }: TextProps) => <h5>{ children }</h5>
-const BlockLeft = ({ children }: TextProps) => <p>{ children }</p>
-const BlockRight = ({ children }: TextProps) => <p>{ children }</p>
-
-const Block = ({ id, title, left, right, blocklink}: BlockData) => {
+const Block: FunctionComponent<BlockData> = ({ id, title, left, right, blocklink}) => {
     return (
         <Link to={ blocklink }>
             <BlockTitle>{ title }</BlockTitle>
-            <BlockLeft>{ left }</BlockLeft>
-            <BlockRight>{ right }</BlockRight>
+            <BlockParts>
+                <BlockLeft>{ left }</BlockLeft>
+                <BlockRight>{ right }</BlockRight>
+            </BlockParts>
         </Link>
     )
 }
 
-export const BlockList = ({ blockdata }: BlockListProps) => {
+export const BlockList: FunctionComponent<BlockListProps> = ({ blockdata }) => {
     return (
-        <ul>
+        <ul className="blocklist">
             { blockdata
-                .map(({id, title, left, right, blocklink}: BlockData) => {
+                .map(({id, title, left, right, blocklink}) => {
                     return (
                         <li key={ id }>
-                            <Block key={ id } {...{id, title, left, right, blocklink}} />
+                            <Block {...{id, title, left, right, blocklink}} />
                         </li>
                     )})
             }
