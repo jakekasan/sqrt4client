@@ -1,25 +1,95 @@
 $dark-back-color: #273039;
+$dark-back-hover: #6a829b;
 $dark-font-color: aliceblue;
+
 
 body {
     padding: 0;
     margin: 0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 * {
     box-sizing: border-box;
 }
 
-.blocklist {
+ul, ol {
     list-style: none;
+    padding: 0;
+    margin: 0;
 }
+
+.blocklist {
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+    li {
+        padding: 0px;
+        margin: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+        width: 170px;
+        height: 170px;
+        background-color: $dark-back-color;
+        color: $dark-font-color;
+
+        &:hover {
+            background-color: $dark-back-hover;
+        }
+
+        a {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            header {
+                margin: 20px 10px;
+            }
+
+            h5, p {
+                padding: 0;
+                margin: 5px;
+                text-align: center;
+                grid-row: span 1;
+                // line-height: 75px;
+            }
+
+            h5 {
+                grid-column: span 2;
+                font-size: 1.5rem;
+            }
+
+            p {
+                grid-column: span 1;
+            }
+
+            p.left {
+                text-align: left;
+            }
+
+            p.right {
+                text-align: right;
+            }
+        }
+
+        * {
+            text-decoration: none;
+            color: $dark-font-color;
+        }
+        
+    }
+}
+
 
 #App {
     padding: 0;
     margin: 0;
 
     nav {
-        padding: 20px;
+        padding: 10px;
         background-color: $dark-back-color;
         display: flex;
         flex-direction: row;
@@ -35,12 +105,20 @@ body {
 
     main {
         margin: 0 auto;
-        width: 800px;
+        padding: 25px 0;
+        width: 1000px;
+        display: flex;
+        flex-direction: column;
 
-        @media screen and (max-width: 850px) {
+        @media screen and (max-width: 1050px) {
             width: 300px;
         }
-        
+
+        & > header {
+            display: flex;
+            place-content: center;
+            margin: 20px 50px;
+        }
     }
 }
 
