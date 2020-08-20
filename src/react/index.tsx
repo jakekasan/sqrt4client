@@ -17,6 +17,7 @@ import { DataContext } from "./Data";
 import { BlockList } from "./BlockList";
 
 import "./../sass/main.scss";
+import { Background } from "./Background";
 
 type JSXChildren = JSX.Element|JSX.Element[];
 
@@ -93,6 +94,7 @@ const App = () => {
                 <Route path="/login" component={ Login } />
                 <Route path="*" component={ NotFound } />
             </Switch>
+            <Background />
         </Router>
     )
 }
