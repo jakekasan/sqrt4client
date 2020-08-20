@@ -4,6 +4,8 @@ $light-font-color: black;
 $dark-back-hover: #6a829b;
 $dark-font-color: aliceblue;
 
+$full-size-width: 1000px;
+
 
 body {
     padding: 0;
@@ -27,6 +29,7 @@ ul, ol {
     margin: 0;
     padding: 10px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    display: flex;
 }
 
 .card.hover {
@@ -52,16 +55,19 @@ img.background {
 
     ol {
         display: grid;
+        grid-template-columns: 1000px;
+        grid-template-rows: 400px;
         gap: 20px;
     }
 }
 
 .lesson-module {
     padding: 5px;
-    height: 400px;
+    height: auto;
 
     display: grid;
-    grid-template-rows: 50px 350px;
+    grid-template-rows: 50px 325px;
+    grid-template-columns: 100%;
 
     h2 {
         margin: 0;
@@ -69,14 +75,18 @@ img.background {
 
     section {
         display: grid;
+        //max-width: $full-size-width;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 50px auto;
 
         .img-container {
             grid-row: span 2;
             grid-column: span 1;
-            
+            display: flex;
+
             img {
+                height: 50px;
+                width: 50px;
                 object-fit: scale-down;
             }
         }
@@ -201,7 +211,7 @@ img.background {
     main {
         margin: 0 auto;
         padding: 25px 0;
-        width: 1000px;
+        width: $full-size-width;
         display: flex;
         flex-direction: column;
 
