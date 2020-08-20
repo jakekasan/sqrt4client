@@ -7,7 +7,8 @@ import {
     ModuleData,
     SubModuleData
 } from "./Data";
-import { link } from "fs";
+
+import Homer from "./../img/homer.png";
 
 type LessonSubmodule = {
     title: string,
@@ -57,6 +58,7 @@ interface ImageProps {
 }
 
 const Image: FunctionComponent<ImageProps> = ({ url }) => <img src={ url }/>
+const ContainedImage: FunctionComponent<ImageProps> = (props) => <div className="img-container"><Image {...props} /></div>
 
 const SubmoduleGallery: FunctionComponent<SubmoduleGalleryProps> = ({ submodules } ) => {
 
@@ -66,22 +68,22 @@ const SubmoduleGallery: FunctionComponent<SubmoduleGalleryProps> = ({ submodules
 
     return (
         <section>
-            <Image url={ pictureURL } />
-            <ul>
+            <ContainedImage url={ Homer as string } />
+            <ul className="submodule-gallery">
                 { submodules.map((submodule, i) => {
                     return (
-                        <li key={ i } onClick={ () => setCurrentPage(i) }>
-                            <a href="#">
-                                { submodule.title }
+                        <li key={ i } onClick={ () => setCurrentPage(i) } title={ submodule.title }>
+                            <a href="#/">
+                                <Image url={ Homer as string }></Image>
                             </a>
                         </li>)
                 }) }
             </ul>
             <article>
                 <h5>{ title }</h5>
-                <ul>
-                    { text.map((tx, i) => <li key={ i }>{ tx }</li>)}
-                </ul>
+                <p>
+                    { text.reduce((acc, cur) => acc + `\n${cur}`, "")}
+                </p>
             </article>
         </section>
     )
@@ -89,7 +91,7 @@ const SubmoduleGallery: FunctionComponent<SubmoduleGalleryProps> = ({ submodules
 
 const LessonModule: FunctionComponent<ModuleData> = ({ id, title, submodules }: ModuleData) => {
     return (
-        <article>
+        <article className="lesson-module">
             <h2>
                 { `${id}: ${title}` }
             </h2>
@@ -101,18 +103,18 @@ const LessonModule: FunctionComponent<ModuleData> = ({ id, title, submodules }: 
 const LessonModules: FunctionComponent<LessonModulesProps> = ({ modules }) => {
     return (
         <ol>
-            { modules.map(module => <li key={ module.id }><LessonModule { ...module } /></li>) }
+            { modules.map(module => <li className="card" key={ module.id }><LessonModule { ...module } /></li>) }
         </ol>
     )
 }
 
 const LessonDetails: FunctionComponent<LessonDetailsProps> = ({ lesson }) => {
     return (
-        <main>
-            <aside>
+        <main className="lesson-details">
+            <aside className="card">
                 <img src="" alt=""/>
             </aside>
-            <section>
+            <section className="card">
                 <h1>{ lesson.title }</h1>
                 <p>{ lesson.desc ?? "Bez popisu." }</p>
                 <ul>
