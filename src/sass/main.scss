@@ -1,4 +1,6 @@
 $dark-back-color: #273039;
+$light-back-color: white;
+$light-font-color: black;
 $dark-back-hover: #6a829b;
 $dark-font-color: aliceblue;
 
@@ -17,6 +19,91 @@ ul, ol {
     list-style: none;
     padding: 0;
     margin: 0;
+}
+
+.card {
+    background-color: $light-back-color;
+    color: $light-font-color;
+    margin: 0;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.card.hover {
+    transition: 0.5s;
+}
+
+.card.hover:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4)
+}
+
+img.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0.4;
+    z-index: -3;
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
+.lesson-details {
+    gap: 20px;
+
+    ol {
+        display: grid;
+        gap: 20px;
+    }
+}
+
+.lesson-module {
+    padding: 5px;
+    height: 400px;
+
+    display: grid;
+    grid-template-rows: 50px 350px;
+
+    h2 {
+        margin: 0;
+    }
+
+    section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 50px auto;
+
+        .img-container {
+            grid-row: span 2;
+            grid-column: span 1;
+            
+            img {
+                object-fit: scale-down;
+            }
+        }
+
+        ul.submodule-gallery {
+            display: flex;
+            flex-direction: row;
+            margin: 0px;
+            padding: 0px;
+            gap: 15px;
+            
+            li {
+                width: 50px;
+                opacity: 0.5;
+                transition: 0.5s;
+
+                &:hover {
+                    opacity: 0.9;
+                }
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
 }
 
 .blocklist {
@@ -120,6 +207,10 @@ ul, ol {
 
         @media screen and (max-width: 1050px) {
             width: 300px;
+        }
+
+        * > {
+            margin: 50px 0;
         }
 
         & > header {
