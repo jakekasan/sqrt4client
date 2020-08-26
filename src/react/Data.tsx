@@ -54,7 +54,6 @@ export const LessonModel: IModel<LessonData> = {
 
         return lesson
     }
-
 }
 
 export const CourseModel: IModel<CourseData> = {

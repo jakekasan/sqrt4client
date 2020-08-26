@@ -102,7 +102,7 @@ const LessonModule: FunctionComponent<ModuleData> = ({ id, title, submodules }: 
 
 const LessonModules: FunctionComponent<LessonModulesProps> = ({ modules }) => {
     return (
-        <ol>
+        <ol className="lesson-modules">
             { modules.map(module => <li className="card" key={ module.id }><LessonModule { ...module } /></li>) }
         </ol>
     )
